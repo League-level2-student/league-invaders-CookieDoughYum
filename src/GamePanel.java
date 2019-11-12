@@ -114,27 +114,27 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		        currentState++;
 		    }
 		}   
-		if (e.getKeyCode()==KeyEvent.VK_UP) {
-			if(r.x>0 && r.x<250 && r.y>0 && r.y<700) {
-			System.out.println("UP");
-		    r.y-=10;
-			}
+	if (e.getKeyCode()==KeyEvent.VK_UP) {
+		   if(r.y>=r.speed) {
+			   r.y-=10;
+		    }
 		}
 		if (e.getKeyCode()==KeyEvent.VK_DOWN) {
-			if(r.x>0 && r.x<250 && r.y>0 && r.y<700) {
-		    r.y+=10;
-			}
+		    if(r.y<=(LeagueInvaders.height-r.height)-r.speed) {
+		    	 r.y+=10;
+		    }
 		}
 		if (e.getKeyCode()==KeyEvent.VK_LEFT) {
-			if(r.x>0 && r.x<250 && r.y>0 && r.y<700) {
-		    r.x-=10;
-			}
+		    if(r.x>=r.speed) {
+		    	 r.x-=10;
+		    }
+		}
 		if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
-			if(r.x>0 && r.x<250 && r.y>0 && r.y<700) {
-				 r.x+=10;
-			}
+				  if(r.x<=(LeagueInvaders.width-r.width)-r.speed) {
+					  r.x+=10;
+				    }
 		}
-		}
+		
 	}
 	
 	@Override

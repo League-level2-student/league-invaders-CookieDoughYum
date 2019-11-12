@@ -4,7 +4,7 @@ import java.awt.Graphics;
 public class Rocketship extends GameObject{
 
 	Rocketship(int x, int y, int width, int height, int speed, boolean isActive) {
-		super(x, y, width, height, speed, isActive);
+		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
 		speed=10;
 	}
