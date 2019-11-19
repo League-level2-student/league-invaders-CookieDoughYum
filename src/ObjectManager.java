@@ -1,8 +1,10 @@
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ObjectManager {
+public class ObjectManager implements ActionListener{
 Rocketship r;
 ArrayList<Projectile>projectiles=new ArrayList<Projectile>();
 ArrayList<Alien>aliens=new ArrayList<Alien>();
@@ -42,10 +44,22 @@ void draw(Graphics g) {
 
 void purgeObjects() {
 	for(int i=0; i<aliens.size(); i++) {
-		if(isActive==false) {
-			aliens.get(i).remove();
+		if(aliens.get(i).isActive==false) {
+			aliens.remove(i);
 		}
 	}
+	
+	for(int i=0; i<projectiles.size(); i++) {
+		if(projectiles.get(i).isActive==false) {
+		   projectiles.remove(i);
+		}
+	}
+}
+
+@Override
+public void actionPerformed(ActionEvent e) {
+	// TODO Auto-generated method stub
+	addAlien();
 }
 
 }

@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 public class GamePanel extends JPanel implements ActionListener, KeyListener{ 
@@ -20,7 +22,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	Font enemies;
 	Font restart;
 	Timer frameDraw;
+	Timer alienSpawn;
 	Rocketship r=new Rocketship(250, 700, 50, 50, 0, true);
+	ObjectManager m=new ObjectManager(r);
+	public static BufferedImage image;
+	public static boolean needImage = true;
+	public static boolean gotImage = false;	
 	@Override
 	public void paintComponent(Graphics g) {
 		if(currentState == MENU){
@@ -46,7 +53,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		
 	}
 	void updateGameState() {
-		
+		m.update();
 	}
 	void updateEndState() {
 		
@@ -67,10 +74,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	}
     
     void drawGameState(Graphics g) {
-    	
-    	g.setColor(Color.BLACK);
-    	g.fillRect(0, 0, LeagueInvaders.width, LeagueInvaders.height);
-    	r.draw(g);
+         loadImage("space.png");
+         g.drawImage(image, 0, 0, LeagueInvaders.width, LeagueInvaders.height, null);
+    	m.draw(g);
     	
    	}
     
@@ -112,6 +118,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		        currentState = MENU;
 		    } else {
 		        currentState++;
+		        if(currentState==GAME) {
+		        	startGame();
+		        }
+		        if(currentState==END) {
+		        	alienSpawn.stop();
+		        }
 		    }
 		}   
 	if (e.getKeyCode()==KeyEvent.VK_UP) {
@@ -134,13 +146,32 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 					  r.x+=10;
 				    }
 		}
-		
+		if(e.getKeyCode()==KeyEvent.VK_SPACE) {
+			m.addProjectile(r.getProjectile());
+		}
 	}
 	
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	void loadImage(String imageFile) {
+	    if (needImage) {
+	        try {
+	            image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+		    gotImage = true;
+	        } catch (Exception e) {
+	            
+	        }
+	        needImage = false;
+	    }
+	}
+	
+	void startGame(){
+		alienSpawn=new Timer(1000, m);
+		alienSpawn.start();
 	}
 	
 }
