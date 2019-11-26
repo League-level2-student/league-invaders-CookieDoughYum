@@ -9,6 +9,12 @@ Rocketship r;
 ArrayList<Projectile>projectiles=new ArrayList<Projectile>();
 ArrayList<Alien>aliens=new ArrayList<Alien>();
 Random a=new Random();
+int score=0;
+
+int getScore() {
+	return score;
+}
+
 ObjectManager(Rocketship r){
 	this.r=r;
 }
@@ -29,6 +35,9 @@ void update() {
 	for(int i=0; i<projectiles.size(); i++) {
 		projectiles.get(i).update();
 	}
+	r.update();
+	checkCollision();
+	purgeObjects();
 }
 
 void draw(Graphics g) {
@@ -60,6 +69,22 @@ void purgeObjects() {
 public void actionPerformed(ActionEvent e) {
 	// TODO Auto-generated method stub
 	addAlien();
+}
+
+void checkCollision() {
+	for(int i=0; i<aliens.size(); i++) {
+		if(r.collisionBox.intersects(aliens.get(i).collisionBox)) {
+			aliens.get(i).isActive=false;
+			r.isActive=false;
+		}
+	for(int i1=0; i1<projectiles.size(); i1++) {
+		if(projectiles.get(i1).collisionBox.intersects(aliens.get(i).collisionBox)) {
+			aliens.get(i).isActive=false;
+			score+=1;
+		}
+	}
+	}
+	
 }
 
 }

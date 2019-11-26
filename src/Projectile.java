@@ -16,6 +16,7 @@ public class Projectile extends GameObject{
 		if (needImage) {
 		    loadImage ("bullet.png");
 		}
+		 super.update();
 	}
 void draw(Graphics g) {
 	 g.setColor(Color.RED);
@@ -34,6 +35,7 @@ void update() {
 	if(y+height<=0) {
 		isActive=false;
 	}
+	super.update();
 }
 
 void loadImage(String imageFile) {
