@@ -97,7 +97,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Game Over", 200, 200);
 		g.setFont(enemies);
 		g.setColor(Color.BLACK);
-		g.drawString("You killed enemies", 200, 400);
+		g.drawString(" You killed " + m.getScore() + " enemies ", 200, 400);
 		g.setFont(restart);
 		g.setColor(Color.BLACK);
 		g.drawString("Press ENTER to restart", 150, 700);
